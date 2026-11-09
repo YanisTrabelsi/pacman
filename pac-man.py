@@ -2,6 +2,7 @@ import pygame as pg
 import json
 from mazegenerator import MazeGenerator
 from obj import *
+from game.game import Game
 
 with open('config.json', "r") as json_data:
     data = json.load(json_data)
