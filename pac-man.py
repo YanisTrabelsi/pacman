@@ -1,18 +1,17 @@
 import pygame as pg
-import json
 from mazegenerator import MazeGenerator
 from obj import *
 from game.game import Game
+from game.game_config import GameConfig
 
-with open('config.json', "r") as json_data:
-    data = json.load(json_data)
-    print(data)
+
+gconf: GameConfig = GameConfig()
 
 pg.init()
-screen: pg.Surface = pg.display.set_mode(((data["cell"] * 15) + 2, (data["cell"] * 15) + 50))
+screen: pg.Surface = pg.display.set_mode(((gconf.cell * gconf.width) + 2, (gconf.cell * gconf.height) + 50))
 clock: pg.time.Clock = pg.time.Clock()
 
-maze: MazeGenerator = MazeGenerator()
+maze: MazeGenerator = MazeGenerator(size=(gconf.width, gconf.height), seed=gconf.seed)
 maze.generate()
 grid: list[list[int]] = maze.maze
 pacman: Pacman = Pacman(grid)
@@ -29,7 +28,7 @@ while running:
     screen.fill((0, 0, 0))
 
     game.draw_maze()
-    pg.draw.circle(screen, (255, 255, 255), (pacman.x, pacman.y), 15)
+    pg.draw.circle(screen, (255, 255, 255), (pacman.x, pacman.y), gconf.cell // 3)
 
     pg.display.flip()
     clock.tick(60)
