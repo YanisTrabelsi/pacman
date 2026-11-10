@@ -1,5 +1,5 @@
 import pygame as pg
-from game_config import Game_config
+from .game_config import Game_config
 
 
 d: Game_config = Game_config()
