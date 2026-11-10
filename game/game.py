@@ -1,16 +1,15 @@
 import pygame as pg
-import json
+from game_config import Game_config
 
-with open('config.json', "r") as json_data:
-    data = json.load(json_data)
-    print(data)
+
+d: Game_config = Game_config()
 
 
 class Game():
     def __init__(self, screen: pg.Surface, grid: list):
         self.screen = screen
         self.grid = grid
-        self.cell = data["cell"]
+        self.cell = d.cell
 
     def draw_maze(self):
         x: int = 0
