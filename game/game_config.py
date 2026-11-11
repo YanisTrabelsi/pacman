@@ -20,5 +20,5 @@ class GameConfig:
     level_max_time: int = d["level_max_time"]
     cell: int = d["cell"]
     speed: int = d["speed"]
-    pacman_spawn: tuple[int, int] = (0, 0)
+    pacman_spawn: tuple[int, int] = (9, 8)
     ghosts_spawn: tuple[int, int] = (0, 0)
