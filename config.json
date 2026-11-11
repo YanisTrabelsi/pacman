@@ -1,14 +1,22 @@
 {
-	"highscore_filename": "highs_score.txt",
-	"width": 20,
-	"height": 15,
-	"lives": 3,
-	"pacgum": 42,
-	"points_per_pacgum": 10,
-	"points_per_super_pacgum": 50,
-	"points_per_ghost": 200,
-	"seed": 42,
-	"level_max_time": 90,
-	"cell": 40,
-	"speed": 5
+    "highscore_filename": "highs_score.txt",
+    "width": 20,
+    "height": 15,
+    "lives": 3,
+    "pacgum": 42,
+    "points_per_pacgum": 10,
+    "points_per_super_pacgum": 50,
+    "points_per_ghost": 200,
+    "seed": 42,
+    "level_max_time": 90,
+    "cell": 40,
+    "speed": 5,
+    "pacman_spawn": [
+        9,
+        8
+    ],
+    "ghosts_spawn": [
+        0,
+        0
+    ]
 }

@@ -17,20 +17,29 @@ grid: list[list[int]] = maze.maze
 pacman: Pacman = Pacman(grid)
 game: Game = Game(screen, grid)
 
-running = True
-while running:
-    for event in pg.event.get():
-        if event.type == pg.QUIT:
-            running = False
 
-    pacman.get_key_direction()  # recupere input et move le pacman
+def main() -> int:
+    running = True
+    while running:
+        for event in pg.event.get():
+            if event.type == pg.QUIT:
+                running = False
 
-    screen.fill((0, 0, 0))
+        pacman.get_key_direction()  # recupere input et move le pacman
 
-    game.draw_maze()
-    pg.draw.circle(screen, (255, 255, 255), (pacman.x, pacman.y), gconf.cell // 3)
+        screen.fill((0, 0, 0))
 
-    pg.display.flip()
-    clock.tick(60)
+        game.draw_maze()
+        pg.draw.circle(screen,
+                       (255, 255, 255),
+                       (pacman.x, pacman.y),
+                       gconf.cell // 3)
 
-pg.quit()
+        pg.display.flip()
+        clock.tick(60)
+
+    pg.quit()
+    return 0
+
+
+main()
