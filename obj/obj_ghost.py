@@ -2,24 +2,24 @@ from collections import deque
 from .obj_entities import Entity
 
 class Ghost(Entity):
-    def __init__(self, grid: list) -> None:
+    def __init__(self, grid: list[list[int]]) -> None:
         super().__init__(grid=grid)
 
-    def _can_enter(self, next: tuple[int, int], previous: tuple[int, int]) -> bool:
-        if self.grid[next[1]][next[0]] & 1 and previous == (next[0], next[1] - 1):
+    def _can_enter(self, nxt: tuple[int, int], previous: tuple[int, int]) -> bool:
+        if self.grid[nxt[1]][nxt[0]] & 1 and previous == (nxt[0], nxt[1] - 1):
             return False
-        if self.grid[next[1]][next[0]] & 4 and previous == (next[0], next[1] + 1):
+        if self.grid[nxt[1]][nxt[0]] & 4 and previous == (nxt[0], nxt[1] + 1):
             return False
-        if self.grid[next[1]][next[0]] & 2 and previous == (next[0] + 1, next[1]):
+        if self.grid[nxt[1]][nxt[0]] & 2 and previous == (nxt[0] + 1, nxt[1]):
             return False
-        if self.grid[next[1]][next[0]] & 8 and previous == (next[0] - 1, next[1]):
+        if self.grid[nxt[1]][nxt[0]] & 8 and previous == (nxt[0] - 1, nxt[1]):
             return False
         return True
 
-    def _find_short_path(self) -> None:
+    def _find_short_path(self, pacman: tuple[int, int]) -> None:
         directions = {"left": (-1, 0), "right": (1, 0), "up": (0, -1), "down": (0, 1)}
         start = (self.x // self.cell_size, self.y // self.cell_size)
-        goal = (pacman.x // self.cell_size, pacman.y // self.cell_size)
+        goal = (pacman[0] // self.cell_size, pacman[1] // self.cell_size)
         previous: dict = {start: None}
         queue = deque([start])
         while queue:
