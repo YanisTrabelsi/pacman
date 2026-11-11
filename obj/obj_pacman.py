@@ -9,8 +9,8 @@ gconf: GameConfig = GameConfig()
 class Pacman(Entity):
     def __init__(self, grid: list) -> None:
         super().__init__(grid=grid)
-        self.x = (gconf.pacman_spawn[0] * self.cell_size) + (self.cell_size // 2) + 1
-        self.y = (gconf.pacman_spawn[1] * self.cell_size) + (self.cell_size // 2) + 1
+        self.x = (gconf.pacman_spawn_x * self.cell_size) + (self.cell_size // 2) + 1
+        self.y = (gconf.pacman_spawn_y * self.cell_size) + (self.cell_size // 2) + 1
 
     def get_key_direction(self):
         keys = key.get_pressed()

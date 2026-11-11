@@ -11,12 +11,8 @@
     "level_max_time": 90,
     "cell": 40,
     "speed": 5,
-    "pacman_spawn": [
-        9,
-        8
-    ],
-    "ghosts_spawn": [
-        0,
-        0
-    ]
+    "pacman_spawn_x": 9,
+    "pacman_spawn_y": 8,
+    "ghosts_spawn_x": 0,
+    "ghosts_spawn_y": 0
 }

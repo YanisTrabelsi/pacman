@@ -8,6 +8,15 @@ try:
         if data.tell() == 0:
             data.write("{}")
         data.seek(0)
+        for line in data.readlines():
+            if '{' in line or '}' in line:
+                continue
+            print(repr(line))
+            try:
+                json.loads(f"{{{line.translate(str.maketrans('', '', ', \t\n'))}}}")
+            except json.JSONDecodeError:
+                print("ERROOOOOR")
+        data.seek(0)
         d: dict = json.load(data)
 except PermissionError:
     print("[ERROR] You don't have permissions to open config.json"
@@ -37,8 +46,10 @@ class GameConfig:
     level_max_time: int = d["level_max_time"]
     cell: int = d["cell"]
     speed: int = d["speed"]
-    pacman_spawn: tuple[int, int] = tuple(d["pacman_spawn"])
-    ghosts_spawn: tuple[int, int] = tuple(d["ghosts_spawn"])
+    pacman_spawn_x: int = d["pacman_spawn_x"]
+    pacman_spawn_y: int = d["pacman_spawn_y"]
+    ghosts_spawn_x: int = d["ghosts_spawn_x"]
+    ghosts_spawn_y: int = d["ghosts_spawn_y"]
 
 
 gconf: GameConfig = GameConfig()

@@ -97,35 +97,44 @@ def check_data(d: dict) -> dict:
     except KeyError:
         d[data] = 5
 
-    # pacman_spawn
-    data = "pacman_spawn"
+    # pacman_spawn_x
+    data = "pacman_spawn_x"
+    try:
+        if not isinstance(d[data], int):
+            d[data] = 9
+        elif not isinstance(d[data], int) or d[data] < 0:
+            d[data] = 9
+    except KeyError:
+        d[data] = 9
+
+    # pacman_spawn_y
+    data = "pacman_spawn_y"
+    try:
+        if not isinstance(d[data], int):
+            d[data] = 8
+        elif not isinstance(d[data], int) or d[data] < 0:
+            d[data] = 8
+    except KeyError:
+        d[data] = 8
+
+    # ghosts_spawn_x
+    data = "ghosts_spawn_x"
     try:
         if not isinstance(d[data], list):
-            d[data] = (9, 8)
-        elif not all([isinstance(e, int) for e in d[data]])\
-                or len(d[data]) != 2:
-            d[data] = (9, 8)
-        if d[data][0] < 0:
-            d[data][0] = 9
-        if d[data][1] < 0:
-            d[data][1] = 8
+            d[data] = 0
+        elif not isinstance(d[data], int) or d[data] < 0:
+            d[data] = 0
     except KeyError:
-        d[data] = (9, 8)
+        d[data] = 0
 
-    # ghosts_spawn
-    data = "ghosts_spawn"
+    # ghosts_spawn_y
+    data = "ghosts_spawn_y"
     try:
         if not isinstance(d[data], list):
-            d[data] = (0, 0)
-        elif not all([isinstance(e, int) for e in d[data]])\
-                or len(d[data]) != 2:
-            d[data] = (0, 0)
-        if d[data][0] < 0:
-            d[data][0] = 0
-        if d[data][1] < 0:
-            d[data][1] = 0
-
+            d[data] = 0
+        elif not isinstance(d[data], int) or d[data] < 0:
+            d[data] = 0
     except KeyError:
-        d[data] = (0, 0)
+        d[data] = 0
 
     return d
