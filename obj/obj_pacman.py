@@ -1,10 +1,16 @@
 from .obj_entities import Entity
 from pygame import key, K_LEFT, K_RIGHT, K_UP, K_DOWN
+from game.game_config import GameConfig
+
+
+gconf: GameConfig = GameConfig()
 
 
 class Pacman(Entity):
     def __init__(self, grid: list) -> None:
         super().__init__(grid=grid)
+        self.x = gconf.pacman_spawn[0]
+        self.y = gconf.pacman_spawn[1]
 
     def get_key_direction(self):
         keys = key.get_pressed()
