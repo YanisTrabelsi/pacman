@@ -1,20 +1,20 @@
 import pygame as pg
-from .game_config import Game_config
+from .game_config import GameConfig
 
 
-d: Game_config = Game_config()
+conf: GameConfig = GameConfig()
 
 
 class Game():
-    def __init__(self, screen: pg.Surface, grid: list):
+    def __init__(self, screen: pg.Surface, grid: list) -> None:
         self.screen = screen
         self.grid = grid
-        self.cell = d.cell
+        self.cell = conf.cell
 
-    def draw_maze(self):
-        x: int = 0
+    def draw_maze(self) -> None:
         y: int = 0
         for line in self.grid:
+            x: int = 0
             for cell in line:
                 if cell == 15:
                     pg.draw.rect(self.screen, (255, 215, 0), (x, y, self.cell, self.cell))
@@ -26,8 +26,6 @@ class Game():
                     pg.draw.line(self.screen, (0, 0, 255), (x, y + self.cell), (x + self.cell, y + self.cell), 2)
                 if cell & 8:
                     pg.draw.line(self.screen, (0, 0, 255), (x, y), (x, y + self.cell), 2)
-
                 x = x + self.cell
-            y = y + self.cell
-            x = 0
 
+            y = y + self.cell

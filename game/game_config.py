@@ -7,7 +7,7 @@ with open('config.json', 'r') as data:
 
 
 @dataclass
-class Game_config:
+class GameConfig:
     highscore_filename: str = d["highscore_filename"]
     width: int = d["width"]
     height: int = d["height"]

@@ -1,15 +1,13 @@
 from abc import ABC
-import json
+from game.game_config import GameConfig
 
-with open('config.json', "r") as json_data:
-    data = json.load(json_data)
-    print(data)
+gconf: GameConfig = GameConfig()
 
 
 class Entity(ABC):
     def __init__(self, grid: list):
-        self.cell_size = data["cell"]
-        self.speed = data["speed"]
+        self.cell_size = gconf.cell
+        self.speed = gconf.speed
         self.grid = grid
         self.x: int = (7 * self.cell_size) + (self.cell_size // 2) + 1
         self.y: int = (8 * self.cell_size) + (self.cell_size // 2) + 1
