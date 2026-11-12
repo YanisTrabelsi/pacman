@@ -1,7 +1,7 @@
 {
     "highscore_filename": "highs_score.txt",
-    "width": 24,
-    "height": 25,
+    "width": 20,
+    "height": 15,
     "lives": 3,
     "pacgum": 42,
     "points_per_pacgum": 10,
@@ -10,7 +10,7 @@
     "seed": 42,
     "level_max_time": 90,
     "cell": 40,
-    "speed": 2,
+    "speed": 5,
     "pacman_spawn_x": 9,
     "pacman_spawn_y": 8,
     "ghosts_spawn_x": 0,

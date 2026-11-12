@@ -19,17 +19,22 @@ try:
 
         for i, line in enumerate(lines):
             if "{" in line or "}" in line:
+                if '{' in line:
+                    lines[i] = "{"
+                if '}' in line:
+                    lines[i] = "}"
+                    lines[i - 1] = lines[i - 1].replace(',', '')
+                    for e in lines[i + 1:]:
+                        del lines[i + 1]
+                        len_lines -= 1
                 continue
             try:
                 json.loads(f"{{{line.translate(str.maketrans('', '', ', \t\n'))}}}")
                 if ',' not in line:
-                    if i == 0 or i == len_lines or i == len_lines - 1:
+                    if i == 0 or i == len_lines - 1:
                         continue
                     else:
                         lines[i] = line.replace('\n', ',\n')
-                else:
-                    if i == len_lines - 1:
-                        lines[i] = line.replace(',', '')
             except json.JSONDecodeError:
                 del lines[i]
                 len_lines -= 1
