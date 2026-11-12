@@ -12,7 +12,7 @@ def check_data(d: dict) -> dict:
     # width
     data = "width"
     try:
-        if not isinstance(d[data], int) or d[data] < 0:
+        if not isinstance(d[data], int) or d[data] < 0 or d[data] > 48:
             d[data] = 20
     except KeyError:
         d[data] = 20
@@ -20,7 +20,7 @@ def check_data(d: dict) -> dict:
     # height
     data = "height"
     try:
-        if not isinstance(d[data], int) or d[data] < 0:
+        if not isinstance(d[data], int) or d[data] < 0 or d[data] > 25:
             d[data] = 15
     except KeyError:
         d[data] = 15
@@ -102,7 +102,7 @@ def check_data(d: dict) -> dict:
     try:
         if not isinstance(d[data], int):
             d[data] = 9
-        elif not isinstance(d[data], int) or d[data] < 0:
+        elif not isinstance(d[data], int) or d[data] < 0 or d[data] > d["width"] - 1:
             d[data] = 9
     except KeyError:
         d[data] = 9
@@ -112,7 +112,7 @@ def check_data(d: dict) -> dict:
     try:
         if not isinstance(d[data], int):
             d[data] = 8
-        elif not isinstance(d[data], int) or d[data] < 0:
+        elif not isinstance(d[data], int) or d[data] < 0 or d[data] > d["height"] - 1:
             d[data] = 8
     except KeyError:
         d[data] = 8
@@ -120,9 +120,9 @@ def check_data(d: dict) -> dict:
     # ghosts_spawn_x
     data = "ghosts_spawn_x"
     try:
-        if not isinstance(d[data], list):
+        if not isinstance(d[data], int):
             d[data] = 0
-        elif not isinstance(d[data], int) or d[data] < 0:
+        elif not isinstance(d[data], int) or d[data] < 0 or d[data] > d["width"] - 1:
             d[data] = 0
     except KeyError:
         d[data] = 0
@@ -130,9 +130,9 @@ def check_data(d: dict) -> dict:
     # ghosts_spawn_y
     data = "ghosts_spawn_y"
     try:
-        if not isinstance(d[data], list):
+        if not isinstance(d[data], int):
             d[data] = 0
-        elif not isinstance(d[data], int) or d[data] < 0:
+        elif not isinstance(d[data], int) or d[data] < 0 or d[data] > d["height"] - 1:
             d[data] = 0
     except KeyError:
         d[data] = 0

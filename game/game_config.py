@@ -4,25 +4,44 @@ import json
 
 file: str = "config.json"
 try:
-    with open(file, 'a+') as data:
+    with open(file, "a+") as data:
         if data.tell() == 0:
             data.write("{}")
         data.seek(0)
-        for line in data.readlines():
-            if '{' in line or '}' in line:
+
+        lines: list[str] = data.readlines()
+        len_lines: int = len(lines) - 1
+        for i, line in enumerate(lines):
+            if "{" in line or "}" in line:
                 continue
-            print(repr(line))
             try:
                 json.loads(f"{{{line.translate(str.maketrans('', '', ', \t\n'))}}}")
+                if ',' not in line:
+                    if i == 0 or i == len_lines or i == len_lines - 1:
+                        continue
+                    else:
+                        lines[i] = line.replace('\n', ',\n')
+                else:
+                    if i == len_lines - 1:
+                        lines[i] = line.replace(',', '')
             except json.JSONDecodeError:
-                print("ERROOOOOR")
+                del lines[i]
+                len_lines -= 1
+                print(f"\033[31m[Error]\033[0m {file} at line {i}")
+                print("\033[33m[Notice]\033[0m Deleted or Replaced by default value")
+                continue
+        with open(file, "w") as f:
+            for line in lines:
+                f.write(line)
         data.seek(0)
         d: dict = json.load(data)
 except PermissionError:
-    print("[ERROR] You don't have permissions to open config.json"
-          "\nConfig saved in config(1).json")
+    print(
+        "\033[31m[Error]\033[0m You don't have permissions to open config.json"
+        "\n\033[33m[Notice]\033[0m Config saved in config(1).json"
+    )
     file = "config(1).json"
-    with open(file, 'a+') as data:
+    with open(file, "a+") as data:
         if data.tell() == 0:
             data.write("{}")
         data.seek(0)
@@ -53,5 +72,5 @@ class GameConfig:
 
 
 gconf: GameConfig = GameConfig()
-with open(file, 'w') as data:
+with open(file, "w") as data:
     json.dump(asdict(gconf), data, indent=4)
