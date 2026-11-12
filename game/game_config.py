@@ -11,6 +11,12 @@ try:
 
         lines: list[str] = data.readlines()
         len_lines: int = len(lines) - 1
+        while '{' not in lines[0] or\
+                len(lines[1].translate(str.maketrans('', '', ', \n\t\r'))) < 3:
+            del lines[0]
+            len_lines -= 1
+            continue
+
         for i, line in enumerate(lines):
             if "{" in line or "}" in line:
                 continue
