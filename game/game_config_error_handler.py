@@ -12,7 +12,7 @@ def check_data(d: dict) -> dict:
     # width
     data = "width"
     try:
-        if not isinstance(d[data], int) or d[data] < 0 or d[data] > 48:
+        if not isinstance(d[data], int) or d[data] < 10 or d[data] > 48:
             d[data] = 20
     except KeyError:
         d[data] = 20
@@ -20,7 +20,7 @@ def check_data(d: dict) -> dict:
     # height
     data = "height"
     try:
-        if not isinstance(d[data], int) or d[data] < 0 or d[data] > 25:
+        if not isinstance(d[data], int) or d[data] < 8 or d[data] > 25:
             d[data] = 15
     except KeyError:
         d[data] = 15

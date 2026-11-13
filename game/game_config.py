@@ -45,7 +45,12 @@ try:
             for line in lines:
                 f.write(line)
         data.seek(0)
-        d: dict = json.load(data)
+        try:
+            d: dict = json.load(data)
+        except json.JSONDecodeError as e:
+            d: dict = json.loads("{}")
+            print(f"\033[31m[Error]\033[0m {e}")
+            print("\033[33m[Notice]\033[0m Replaced by default value")
 except PermissionError:
     print(
         "\033[31m[Error]\033[0m You don't have permissions to open config.json"
@@ -60,7 +65,6 @@ except PermissionError:
 
 
 d = check_data(d)
-
 
 @dataclass
 class GameConfig:
