@@ -14,7 +14,7 @@ clock: pg.time.Clock = pg.time.Clock()
 maze: MazeGenerator = MazeGenerator(size=(gconf.width, gconf.height), seed=gconf.seed)
 maze.generate()
 grid: list[list[int]] = maze.maze
-pacman: Pacman = Pacman(grid)
+pacman: Pacman = Pacman(grid, screen)
 game: Game = Game(screen, grid)
 
 
@@ -30,10 +30,7 @@ def main() -> int:
         screen.fill((0, 0, 0))
 
         game.draw_maze()
-        pg.draw.circle(screen,
-                       (255, 255, 255),
-                       (pacman.x, pacman.y),
-                       gconf.cell // 3)
+        pacman.draw()
 
         pg.display.flip()
         clock.tick(60)

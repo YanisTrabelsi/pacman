@@ -1,11 +1,12 @@
 from abc import ABC
 from game.game_config import GameConfig
+import pygame as pg
 
 gconf: GameConfig = GameConfig()
 
 
 class Entity(ABC):
-    def __init__(self, grid: list):
+    def __init__(self, grid: list, screen: pg.Surface):
         self.cell_size = gconf.cell
         self.speed = gconf.speed
         self.grid = grid
@@ -13,6 +14,7 @@ class Entity(ABC):
         self.y: int = (8 * self.cell_size) + (self.cell_size // 2) + 1
         self.direction: str | None = None
         self.wanted_dir: str | None = None
+        self.screen = screen
 
     def _can_move(self, direction: str | None) -> bool:
         column: int = self.x // self.cell_size
@@ -48,3 +50,9 @@ class Entity(ABC):
 
             if self.direction == "down":
                 self.y += self.speed
+
+    def draw(self) -> None:
+        pg.draw.circle(self.screen,
+                       (255, 255, 255),
+                       (self.x, self.y),
+                       gconf.cell // 3)
