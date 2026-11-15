@@ -10,7 +10,7 @@
     "seed": 42,
     "level_max_time": 90,
     "cell": 40,
-    "speed": 5,
+    "speed": 2,
     "pacman_spawn_x": 9,
     "pacman_spawn_y": 8,
     "ghosts_spawn_x": 0,
