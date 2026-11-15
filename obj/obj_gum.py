@@ -16,11 +16,17 @@ class Gum(ABC):
         self.color: tuple[int, int, int] = (255, 215, 0)
 
     def draw(self) -> None:
-        pg.draw.circle(self.screen,
-                       self.color,
-                       (self.x, self.y),
-                       self.size)
+        if not self.is_eaten:
+            pg.draw.circle(self.screen,
+                           self.color,
+                           (self.x, self.y),
+                           self.size)
+        else:
+            pg.draw.circle(self.screen,
+                           (0, 0, 0),
+                           (self.x, self.y),
+                           self.size)
 
     @abstractmethod
-    def instanciate(self) -> None:
+    def instanciate(self) -> list:
         ...

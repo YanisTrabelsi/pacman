@@ -1,6 +1,7 @@
 import pygame as pg
 from mazegenerator import MazeGenerator
 from obj import *
+from scr import *
 from game.game import Game
 from game.game_config import GameConfig
 
@@ -15,6 +16,8 @@ maze: MazeGenerator = MazeGenerator(size=(gconf.width, gconf.height), seed=gconf
 maze.generate()
 grid: list[list[int]] = maze.maze
 pacman: Pacman = Pacman(grid, screen)
+pacgum: Pacgum = Pacgum(grid, screen)
+pacgums: list[Pacgum] = pacgum.instanciate()
 game: Game = Game(screen, grid)
 
 
@@ -26,11 +29,13 @@ def main() -> int:
                 running = False
 
         pacman.get_key_direction()  # recupere input et move le pacman
-
         screen.fill((0, 0, 0))
-
         game.draw_maze()
+        check_pacgums_collision(pacman, pacgums)
+        for gum in pacgums:
+            gum.draw()
         pacman.draw()
+
 
         pg.display.flip()
         clock.tick(60)
