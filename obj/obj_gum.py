@@ -14,6 +14,8 @@ class Gum(ABC):
         self.y: int = 0
         self.size: int = 2
         self.color: tuple[int, int, int] = (255, 215, 0)
+        self.points: int = gconf.points_per_pacgum
+        self.is_in_42: bool = False
 
     def draw(self) -> None:
         if not self.is_eaten:
