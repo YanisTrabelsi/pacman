@@ -9,25 +9,17 @@ class Gum(ABC):
     def __init__(self, grid: list, screen) -> None:
         self.grid: list[list[int]] = grid
         self.screen: pg.Surface = screen
-        self.is_eaten: bool = False
         self.x: int = 0
         self.y: int = 0
         self.size: int = 2
         self.color: tuple[int, int, int] = (255, 215, 0)
         self.points: int = gconf.points_per_pacgum
-        self.is_in_42: bool = False
 
     def draw(self) -> None:
-        if not self.is_eaten:
-            pg.draw.circle(self.screen,
-                           self.color,
-                           (self.x, self.y),
-                           self.size)
-        else:
-            pg.draw.circle(self.screen,
-                           (0, 0, 0),
-                           (self.x, self.y),
-                           self.size)
+        pg.draw.circle(self.screen,
+                       self.color,
+                       (self.x, self.y),
+                       self.size)
 
     @abstractmethod
     def instanciate(self) -> list:
