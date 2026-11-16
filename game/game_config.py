@@ -66,6 +66,7 @@ except PermissionError:
 
 d = check_data(d)
 
+
 @dataclass
 class GameConfig:
     highscore_filename: str = d["highscore_filename"]
@@ -84,6 +85,7 @@ class GameConfig:
     pacman_spawn_y: int = d["pacman_spawn_y"]
     ghosts_spawn_x: int = d["ghosts_spawn_x"]
     ghosts_spawn_y: int = d["ghosts_spawn_y"]
+    score: int = 0
 
 
 gconf: GameConfig = GameConfig()

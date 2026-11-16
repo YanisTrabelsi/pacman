@@ -12,7 +12,7 @@ class Pacgum(Gum):
         super().__init__(grid=grid, screen=screen)
         self.x = len(self.grid[0])
         self.y: int = len(self.grid)
-        self.color = (255, 0, 0)
+        self.color = (255, 215, 0)
 
     def instanciate(self) -> list[Pacgum]:
         pacgums: list[Pacgum] = []

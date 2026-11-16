@@ -13,7 +13,7 @@ class Gum(ABC):
         self.y: int = 0
         self.size: int = 2
         self.color: tuple[int, int, int] = (255, 215, 0)
-        self.points: int = gconf.points_per_pacgum
+        self.score: int = gconf.points_per_pacgum
 
     def draw(self) -> None:
         pg.draw.circle(self.screen,

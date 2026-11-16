@@ -12,7 +12,7 @@ class Superpacgum(Gum):
         super().__init__(grid=grid, screen=screen)
         self.pacgums: list = pacgums
         self.size: int = 5
-        self.points: int = gconf.points_per_super_pacgum
+        self.score: int = gconf.points_per_super_pacgum
         self.color: tuple[int, int, int] = (255, 255, 255)
 
     def instanciate(self) -> list:
