@@ -1,9 +1,9 @@
 {
     "highscore_filename": "highs_score.txt",
-    "width": 15,
+    "width": 30,
     "height": 15,
     "lives": 3,
-    "pacgum": 300,
+    "pacgum": 1000,
     "points_per_pacgum": 10,
     "points_per_super_pacgum": 50,
     "points_per_ghost": 200,

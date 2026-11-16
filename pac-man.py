@@ -16,8 +16,10 @@ maze: MazeGenerator = MazeGenerator(size=(gconf.width, gconf.height), seed=gconf
 maze.generate()
 grid: list[list[int]] = maze.maze
 pacman: Pacman = Pacman(grid, screen)
-pacgum: Pacgum = Pacgum(grid, screen)
-pacgums: list[Pacgum] = pacgum.instanciate()
+handler_pacgum: Pacgum = Pacgum(grid, screen)
+pacgums: list[Pacgum] = handler_pacgum.instanciate()
+handler_superpacgum: Superpacgum = Superpacgum(grid, screen, pacgums)
+superpacgums: list[Superpacgum] = handler_superpacgum.instanciate()
 game: Game = Game(screen, grid)
 
 

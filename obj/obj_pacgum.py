@@ -1,4 +1,4 @@
-from scr.scr_is42 import get42_cells
+from scr import get42_cells
 from .obj_gum import Gum
 from game.game_config import GameConfig
 import pygame as pg
@@ -8,7 +8,7 @@ gconf: GameConfig = GameConfig()
 
 
 class Pacgum(Gum):
-    def __init__(self, grid: list, screen: pg.Surface) -> None:
+    def __init__(self, grid: list[list[int]], screen: pg.Surface) -> None:
         super().__init__(grid=grid, screen=screen)
         self.x = len(self.grid[0])
         self.y: int = len(self.grid)
@@ -41,7 +41,5 @@ class Pacgum(Gum):
         for i in range(nb_to_remove):
             pacgum: Pacgum = rd.choice(pacgums)
             pacgums.remove(pacgum)
-
-        print(len(pacgums))
 
         return pacgums
