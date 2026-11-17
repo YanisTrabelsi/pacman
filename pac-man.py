@@ -21,27 +21,30 @@ pacgums: list[Pacgum] = handler_pacgum.instanciate()
 handler_superpacgum: Superpacgum = Superpacgum(grid, screen, pacgums)
 handler_superpacgum.instanciate()
 game: Game = Game(screen, grid)
+menu_ui: list = instanciate_menu_ui(screen)
 
 
 def main() -> int:
     running = True
     while running:
-        for event in pg.event.get():
-            if event.type == pg.QUIT:
-                running = False
+        input: int = draw_menu(screen, menu_ui)
+        if input == 0:
+            while running:
+                screen.fill((0, 0, 0))
+                game.draw_maze()
+                check_pacgums_collision(pacman, pacgums)
+                for gum in pacgums:
+                    gum.draw()
+                pacman.draw()
 
-        pacman.get_key_direction()  # recupere input et move le pacman
-        screen.fill((0, 0, 0))
-        game.draw_maze()
-        check_pacgums_collision(pacman, pacgums)
-        for gum in pacgums:
-            gum.draw()
-        pacman.draw()
+                for event in pg.event.get():
+                    if event.type == pg.QUIT:
+                        running = False
 
-        button = Button(screen, (0, 255, 0), (100, 100))
-        button.draw()
-        pg.display.flip()
-        clock.tick(60)
+                pacman.get_key_direction()  # recupere input et move le pacman
+                clock.tick(60)
+
+                pg.display.flip()
 
     pg.quit()
     return 0
