@@ -40,6 +40,10 @@ def main() -> int:
                 for event in pg.event.get():
                     if event.type == pg.QUIT:
                         running = False
+                    if event.type == pg.KEYDOWN:
+                        if event.key == pg.K_q:
+                            running = False
+
 
                 pacman.get_key_direction()  # recupere input et move le pacman
                 clock.tick(60)
