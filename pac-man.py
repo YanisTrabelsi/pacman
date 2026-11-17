@@ -45,6 +45,10 @@ def main() -> int:
                 clock.tick(60)
 
                 pg.display.flip()
+        if input == 1:
+            ...
+        if input == 3:
+            ...
 
     pg.quit()
     return 0
