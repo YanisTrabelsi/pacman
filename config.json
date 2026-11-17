@@ -15,5 +15,6 @@
     "pacman_spawn_x": 9,
     "pacman_spawn_y": 15,
     "ghosts_spawn_x": 0,
-    "ghosts_spawn_y": 0
+    "ghosts_spawn_y": 0,
+    "score": 0
 }

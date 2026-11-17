@@ -38,7 +38,8 @@ def main() -> int:
             gum.draw()
         pacman.draw()
 
-
+        button = Button(screen, (0, 255, 0), (100, 100))
+        button.draw()
         pg.display.flip()
         clock.tick(60)
 
