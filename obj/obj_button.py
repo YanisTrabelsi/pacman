@@ -41,5 +41,3 @@ class Button():
             text = font.render(self.text, True, (0, 0, 0), None)
             self.screen.blit(text, (self.position[0] + self.width / 2.5,
                                     self.position[1] + self.height / 1.6))
-
-

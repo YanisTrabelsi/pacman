@@ -19,7 +19,7 @@ pacman: Pacman = Pacman(grid, screen)
 handler_pacgum: Pacgum = Pacgum(grid, screen)
 pacgums: list[Pacgum] = handler_pacgum.instanciate()
 handler_superpacgum: Superpacgum = Superpacgum(grid, screen, pacgums)
-superpacgums: list[Superpacgum] = handler_superpacgum.instanciate()
+handler_superpacgum.instanciate()
 game: Game = Game(screen, grid)
 
 
