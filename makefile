@@ -14,7 +14,7 @@ install:
 	$(PIP) install -q flake8 > /dev/null; \
 	$(PIP) install -q mypy > /dev/null; \
 	$(PIP) install -q pygame > /dev/null; \
-	$(PIP) install -q ./src/mazegenerator-2.1.0-py3-none-any.whl > /dev/null; \
+	$(PIP) install -q ./lib/mazegenerator-2.1.0-py3-none-any.whl > /dev/null; \
 	echo; \
 	printf "\033[32mDépendances installées avec succès.\033[0m\n"
 

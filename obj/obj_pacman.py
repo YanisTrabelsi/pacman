@@ -1,5 +1,5 @@
 from .obj_entities import Entity
-from pygame import key, K_LEFT, K_RIGHT, K_UP, K_DOWN
+from pygame import key, K_LEFT, K_RIGHT, K_UP, K_DOWN, Surface
 from game.game_config import GameConfig
 
 
@@ -7,10 +7,10 @@ gconf: GameConfig = GameConfig()
 
 
 class Pacman(Entity):
-    def __init__(self, grid: list) -> None:
-        super().__init__(grid=grid)
-        self.x = (gconf.pacman_spawn[0] * self.cell_size) + (self.cell_size // 2) + 1
-        self.y = (gconf.pacman_spawn[1] * self.cell_size) + (self.cell_size // 2) + 1
+    def __init__(self, grid: list, screen: Surface) -> None:
+        super().__init__(grid=grid, screen=screen)
+        self.x = (gconf.pacman_spawn_x * self.cell_size) + (self.cell_size // 2) + 1
+        self.y = (gconf.pacman_spawn_y * self.cell_size) + (self.cell_size // 2) + 1
 
     def get_key_direction(self):
         keys = key.get_pressed()
