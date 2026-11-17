@@ -57,6 +57,14 @@ def check_data(d: dict) -> dict:
     except KeyError:
         d[data] = 50
 
+    # rng_super_pacgum
+    data = "rng_super_pacgum"
+    try:
+        if not isinstance(d[data], bool):
+            d[data] = False
+    except KeyError:
+        d[data] = False
+
     # points_per_ghost
     data = "points_per_ghost"
     try:

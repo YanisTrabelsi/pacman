@@ -22,5 +22,5 @@ class Gum(ABC):
                        self.size)
 
     @abstractmethod
-    def instanciate(self) -> list:
+    def instanciate(self) -> list | None:
         ...
