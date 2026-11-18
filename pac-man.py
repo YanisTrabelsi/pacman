@@ -25,11 +25,12 @@ menu_ui: list = instanciate_menu_ui(screen)
 
 
 def main() -> int:
-    running = True
+    running: bool = True
     while running:
         input: int = draw_menu(screen, menu_ui)
         if input == 0:
-            while running:
+            ingame: bool = True
+            while ingame:
                 screen.fill((0, 0, 0))
                 game.draw_maze()
                 check_pacgums_collision(pacman, pacgums)
@@ -37,12 +38,16 @@ def main() -> int:
                     gum.draw()
                 pacman.draw()
 
+                backto_menu: bool = False
                 for event in pg.event.get():
                     if event.type == pg.QUIT:
                         running = False
                     if event.type == pg.KEYDOWN:
                         if event.key == pg.K_q:
+                            ingame = False
                             running = False
+                        if event.key == pg.K_p:
+                            ingame = False
 
 
                 pacman.get_key_direction()  # recupere input et move le pacman
@@ -50,10 +55,11 @@ def main() -> int:
 
                 pg.display.flip()
         if input == 1:
-            ...
+            draw_score(screen)
+        if input == 2:
+            draw_instructions(screen)
         if input == 3:
-            ...
-
+            running = False
     pg.quit()
     return 0
 

@@ -13,17 +13,17 @@ def instanciate_menu_ui(screen: pg.Surface) -> list:
                                (0, 0, 255),
                                (center[0],
                                 center[1] - gconf.height * 6),
-                               "START")
+                               "stArt")
     but_heigh: Button = Button(screen,
                                (0, 0, 255),
                                (center[0],
                                 center[1]),
-                               "SCORES")
+                               "scOres")
     but_instr: Button = Button(screen,
                                (0, 0, 255),
                                (center[0],
                                 center[1] + gconf.height * 6),
-                               "INSTRUCTIONS")
+                               "instructiOns")
     but_start.is_focused = True
 
     return [but_start, but_heigh, but_instr]
@@ -70,6 +70,8 @@ def draw_menu(screen: pg.Surface, buttons: list) -> int:
                 focus_but(but, -1)
             elif event.key == pg.K_RETURN:
                 return check_event(but)
+            elif event.key == pg.K_q:
+                return 3
 
     pg.display.flip()
     return -1
