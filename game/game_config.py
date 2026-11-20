@@ -76,6 +76,7 @@ class GameConfig:
     pacgum: int = d["pacgum"]
     points_per_pacgum: int = d["points_per_pacgum"]
     points_per_super_pacgum: int = d["points_per_super_pacgum"]
+    rng_super_pacgum: bool = d["rng_super_pacgum"]
     points_per_ghost: int = d["points_per_ghost"]
     seed: int = d["seed"]
     level_max_time: int = d["level_max_time"]
