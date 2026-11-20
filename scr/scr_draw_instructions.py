@@ -8,6 +8,7 @@ def instanciate_instrctions_ui(screen: pg.Surface) -> None:
     from obj import TextArea
 
     screen_rect = screen.get_rect()
+    text_color: tuple[int, int, int] = (255, 255, 0)
 
     instructions = [
         "-UP-  go up",
@@ -20,10 +21,10 @@ def instanciate_instrctions_ui(screen: pg.Surface) -> None:
 
     commandstxt: TextArea = TextArea(screen,
                                      (screen_rect.centerx,
-                                      gconf.height // 2),
+                                      gconf.height),
                                      "cOmmAnds",
                                      30,
-                                     (255, 255, 0))
+                                     text_color)
     commandstxt.draw()
     for i, instruction in enumerate(instructions):
         position: tuple[int, int] = (
@@ -36,10 +37,30 @@ def instanciate_instrctions_ui(screen: pg.Surface) -> None:
             position,
             instruction,
             20,
-            (255, 255, 0)
+            text_color
         )
 
         text.draw()
+    howtotxt: TextArea = TextArea(screen,
+                                  (screen_rect.centerx,
+                                   gconf.height * (gconf.cell // 2) + 50),
+                                  "hOw tO plAy",
+                                  30,
+                                  text_color)
+    howtotxt.draw()
+    rules = (
+        "to win collect all pacgums.\n"
+        "avoid ghosts or you lose a life.\n"
+        "eat super-pacgums to eat them !")
+    for i, line in enumerate(rules.split("\n")):
+        rulestxt: TextArea = TextArea(screen,
+                                      (screen_rect.centerx,
+                                       gconf.height * (((gconf.cell // 2) + (i + 2) * 2)) + 50),
+                                      line,
+                                      15,
+                                      text_color)
+        rulestxt.draw()
+
 
 
 def draw_instructions(screen: pg.Surface) -> int:
