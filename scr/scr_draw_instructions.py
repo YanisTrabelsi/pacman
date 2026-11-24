@@ -24,7 +24,8 @@ def instanciate_instrctions_ui(screen: pg.Surface) -> None:
                                       gconf.height),
                                      "cOmmAnds",
                                      30,
-                                     text_color)
+                                     text_color,
+                                     font="res/Emulogic-zrEw.ttf")
     commandstxt.draw()
     for i, instruction in enumerate(instructions):
         position: tuple[int, int] = (
@@ -46,7 +47,8 @@ def instanciate_instrctions_ui(screen: pg.Surface) -> None:
                                    gconf.height * (gconf.cell // 2) + 50),
                                   "hOw tO plAy",
                                   30,
-                                  text_color)
+                                  text_color,
+                                  font="res/Emulogic-zrEw.ttf")
     howtotxt.draw()
     rules = (
         "to win collect all pacgums.\n"
@@ -57,8 +59,9 @@ def instanciate_instrctions_ui(screen: pg.Surface) -> None:
                                       (screen_rect.centerx,
                                        gconf.height * (((gconf.cell // 2) + (i + 2) * 2)) + 50),
                                       line,
-                                      15,
-                                      text_color)
+                                      13,
+                                      text_color,
+                                      font="res/Emulogic-zrEw.ttf")
         rulestxt.draw()
 
 
