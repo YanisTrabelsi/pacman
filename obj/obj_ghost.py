@@ -1,12 +1,13 @@
 import random
 from collections import deque
 from .obj_entities import Entity
+from pygame import Surface
 
 
 class Ghost(Entity):
 
-    def __init__(self, grid: list, x: int, y: int) -> None:
-        super().__init__(grid=grid)
+    def __init__(self, grid: list, screen: Surface, x: int, y: int) -> None:
+        super().__init__(grid=grid, screen=screen)
         self.x: int = (x * self.cell_size) + (self.cell_size // 2) + 1
         self.y: int = (y * self.cell_size) + (self.cell_size // 2) + 1
         self.spawn_x: int = (x * self.cell_size) + (self.cell_size // 2) + 1
@@ -15,6 +16,9 @@ class Ghost(Entity):
         self.wanted_speed: int = 2
         self.is_edible: bool = False
         self.is_eaten: bool = False
+        self.is_waiting: bool = False
+        self.edible_until: float = 0.0
+        self.wait_until: float = 0.0
 
     def _is_centered(self) -> bool:
         half = self.cell_size // 2 + 1
@@ -42,14 +46,19 @@ class Ghost(Entity):
         directions = {"left": (-1, 0), "right": (1, 0), "up": (0, -1), "down": (0, 1)}
         opposite = {"left": "right", "right": "left", "up": "down", "down": "up"}
 
-        dirs, nxt = random.choice(list(directions.items()))
-        nxt = (start_cell[0] + nxt[0], start_cell[1] + nxt[1])
+        valid = []
+        for dirs, (dx, dy) in directions.items():
+            nxt = (start_cell[0] + dx, start_cell[1] + dy)
+            if self.direction is not None and dirs == opposite[self.direction]:
+                continue
+            if self._can_enter(nxt, start_cell):
+                valid.append(dirs)
 
-        if self.direction is not None:
-            if self._can_enter(nxt, start_cell) and dirs != opposite[self.direction]:
-                self.wanted_dir = dirs
-            else:
-                self._random_movement(start_cell)
+        if valid:
+            self.wanted_dir = random.choice(valid)
+        else:
+            if self.direction is not None:
+                self.wanted_dir = opposite[self.direction]
 
     def _find_short_path(self, goal: tuple[int, int], start_cell: tuple[int, int]) -> None:
 
@@ -78,11 +87,36 @@ class Ghost(Entity):
         if way:
             self.wanted_dir = way[-1]
 
-    def ghost_move(self, pacman: tuple[int, int]) -> None:
+    def _edible_time_left(self, now: float) -> float:
+        if self.is_edible:
+            return max(0.0, self.edible_until - now)
+        else:
+            return 0.0
+
+    def become_edible(self, now: float) -> None:
+        if self.is_eaten:
+            return
+        self.is_edible = True
+        self.wanted_speed = 1
+        self.edible_until = now + 6.0
+
+    def ghost_move(self, pacman: tuple[int, int], now: float) -> None:
 
         start_cell: tuple[int, int] = (self.x // self.cell_size, self.y // self.cell_size)
         spawn_cell: tuple[int, int] = (self.spawn_x // self.cell_size, self.spawn_y // self.cell_size)
         pacman_cell: tuple[int, int] = (pacman[0] // self.cell_size, pacman[1] // self.cell_size)
+
+        if self.is_edible and now >= self.edible_until:
+            self.is_edible = False
+            self.wanted_speed = 2
+
+        if self.is_waiting:
+            if now >= self.wait_until:
+                self.is_waiting = False
+                self.is_eaten = False
+                self.wanted_speed = 2
+            else:
+                return
 
         if self._is_centered():
             self.speed = self.wanted_speed
@@ -92,12 +126,14 @@ class Ghost(Entity):
                 self._find_short_path(spawn_cell, start_cell)
             else:
                 if self._is_centered():
-                    self.is_eaten = False
-                    self.wanted_speed = 2
+                    self.is_waiting = True
+                    self.wait_until = now + 4.0
+                    return
 
         elif start_cell == pacman_cell:
             if self.is_edible:
                 self.is_eaten = True
+                self.is_edible = False
                 self.wanted_speed = 4
 
         else:
