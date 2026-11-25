@@ -19,29 +19,47 @@ pacman: Pacman = Pacman(grid, screen)
 handler_pacgum: Pacgum = Pacgum(grid, screen)
 pacgums: list[Pacgum] = handler_pacgum.instanciate()
 handler_superpacgum: Superpacgum = Superpacgum(grid, screen, pacgums)
-superpacgums: list[Superpacgum] = handler_superpacgum.instanciate()
+handler_superpacgum.instanciate()
 game: Game = Game(screen, grid)
+menu_ui: list = instanciate_menu_ui(screen)
 
 
 def main() -> int:
-    running = True
+    running: bool = True
     while running:
-        for event in pg.event.get():
-            if event.type == pg.QUIT:
-                running = False
+        input: int = draw_menu(screen, menu_ui)
+        if input == 0:
+            ingame: bool = True
+            while ingame:
+                screen.fill((0, 0, 0))
+                game.draw_maze()
+                check_pacgums_collision(pacman, pacgums)
+                for gum in pacgums:
+                    gum.draw()
+                pacman.draw()
 
-        pacman.get_key_direction()  # recupere input et move le pacman
-        screen.fill((0, 0, 0))
-        game.draw_maze()
-        check_pacgums_collision(pacman, pacgums)
-        for gum in pacgums:
-            gum.draw()
-        pacman.draw()
+                backto_menu: bool = False
+                for event in pg.event.get():
+                    if event.type == pg.QUIT:
+                        running = False
+                    if event.type == pg.KEYDOWN:
+                        if event.key == pg.K_q:
+                            ingame = False
+                            running = False
+                        if event.key == pg.K_p:
+                            ingame = False
 
 
-        pg.display.flip()
-        clock.tick(60)
+                pacman.get_key_direction()  # recupere input et move le pacman
+                clock.tick(60)
 
+                pg.display.flip()
+        if input == 1:
+            draw_score(screen)
+        if input == 2:
+            draw_instructions(screen)
+        if input == 3:
+            running = False
     pg.quit()
     return 0
 

@@ -14,7 +14,7 @@ class Pacgum(Gum):
         self.y: int = len(self.grid)
         self.color = (255, 215, 0)
 
-    def instanciate(self) -> list[Pacgum]:
+    def instanciate(self) -> list:
         pacgums: list[Pacgum] = []
         row: int = len(self.grid)
         column: int = len(self.grid[0])
