@@ -58,12 +58,12 @@ def main() -> int:
                             ingame = False
                             running = False
                         if event.key == pg.K_p:
-                            ingame = False
                             input = draw_pause(screen, pause_ui)
-                            if input == 0:
-                                ingame = True
+                            if input == 1:
+                                draw_score(screen)
+                            if input == 2:
+                                draw_instructions(screen)
                             if input == 4:
-                                ingame = True
                                 game, pacman = instanciate_game()
                                 pacgums = game.pacgums
                                 menu_ui = game.menu_ui
