@@ -10,6 +10,9 @@ class Game():
         self.screen = screen
         self.grid = grid
         self.cell = conf.cell
+        self.pacgums: list = []
+        self.menu_ui: list = []
+        self.pause_ui: list = []
 
     def draw_maze(self) -> None:
         y: int = 0

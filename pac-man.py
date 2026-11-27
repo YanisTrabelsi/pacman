@@ -9,22 +9,34 @@ from game.game_config import GameConfig
 gconf: GameConfig = GameConfig()
 
 pg.init()
-screen: pg.Surface = pg.display.set_mode(((gconf.cell * gconf.width) + 2, (gconf.cell * gconf.height) + 50))
+screen: pg.Surface = pg.display.set_mode(((gconf.cell * gconf.width) + 2,
+                                          (gconf.cell * gconf.height) + 50))
 clock: pg.time.Clock = pg.time.Clock()
 
-maze: MazeGenerator = MazeGenerator(size=(gconf.width, gconf.height), seed=gconf.seed)
-maze.generate()
-grid: list[list[int]] = maze.maze
-pacman: Pacman = Pacman(grid, screen)
-handler_pacgum: Pacgum = Pacgum(grid, screen)
-pacgums: list[Pacgum] = handler_pacgum.instanciate()
-handler_superpacgum: Superpacgum = Superpacgum(grid, screen, pacgums)
-handler_superpacgum.instanciate()
-game: Game = Game(screen, grid)
-menu_ui: list = instanciate_menu_ui(screen)
+
+def instanciate_game() -> tuple[Game, Pacman]:
+    maze = MazeGenerator(size=(gconf.width, gconf.height),
+                         seed=gconf.seed)
+    maze.generate()
+    grid = maze.maze
+    game = Game(screen, grid)
+    pacman: Pacman = Pacman(grid, screen)
+    handler_pacgum: Pacgum = Pacgum(grid, screen)
+    game.pacgums = handler_pacgum.instanciate()
+    handler_superpacgum: Superpacgum = Superpacgum(grid, screen, game.pacgums)
+    handler_superpacgum.instanciate()
+    game.menu_ui = instanciate_menu_ui(screen)
+    game.pause_ui = instanciate_pause_ui(screen)
+
+    return game, pacman
 
 
 def main() -> int:
+    game, pacman = instanciate_game()
+    pacgums = game.pacgums
+    menu_ui = game.menu_ui
+    pause_ui = game.pause_ui
+
     running: bool = True
     while running:
         input: int = draw_menu(screen, menu_ui)
@@ -38,7 +50,6 @@ def main() -> int:
                     gum.draw()
                 pacman.draw()
 
-                backto_menu: bool = False
                 for event in pg.event.get():
                     if event.type == pg.QUIT:
                         running = False
@@ -48,12 +59,20 @@ def main() -> int:
                             running = False
                         if event.key == pg.K_p:
                             ingame = False
-
+                            input = draw_pause(screen, pause_ui)
+                            if input == 0:
+                                ingame = True
+                            if input == 4:
+                                ingame = True
+                                game, pacman = instanciate_game()
+                                pacgums = game.pacgums
+                                menu_ui = game.menu_ui
+                                pause_ui = game.pause_ui
 
                 pacman.get_key_direction()  # recupere input et move le pacman
                 clock.tick(60)
-
                 pg.display.flip()
+
         if input == 1:
             draw_score(screen)
         if input == 2:
